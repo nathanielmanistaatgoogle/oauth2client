@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>oauth2client.client &mdash; oauth2client 1.4.5 documentation</title>
+  <title>oauth2client.client &mdash; oauth2client 1.4.6 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="oauth2client 1.4.5 documentation" href="../../index.html"/>
+    <link rel="top" title="oauth2client 1.4.6 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -1041,9 +1041,8 @@
   <span class="c"># the metadata resolution was particularly slow. The latter case is</span>
   <span class="c"># &quot;unlikely&quot;.</span>
   <span class="k">try</span><span class="p">:</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://metadata.google.internal/&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="s">&#39;Metadata-Flavor: Google&#39;</span> <span class="ow">in</span> <span class="n">header</span>
-               <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">info</span><span class="p">()</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://169.254.169.254/&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">info</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;Metadata-Flavor&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;Google&#39;</span>
   <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">timeout</span><span class="p">:</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Timeout attempting to reach GCE metadata service.&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">False</span>
@@ -2159,7 +2158,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.4.5',
+            VERSION:'1.4.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
