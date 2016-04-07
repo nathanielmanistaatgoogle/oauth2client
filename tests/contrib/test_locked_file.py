@@ -193,6 +193,7 @@ class TestLockedFile(unittest2.TestCase):
         opener_mock.assert_called_with('a_file', 'r+', 'r')
 
     @mock.patch('oauth2client.contrib.locked_file._Win32Opener')
+    @mock.patch.object(locked_file, '_FcntlOpener', None)
     def test_ctor_native_win32(self, opener_mock):
         instance = locked_file.LockedFile(
             'a_file', 'r+', 'r', use_native_locking=True)

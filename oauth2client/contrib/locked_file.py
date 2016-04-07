@@ -345,17 +345,15 @@ class LockedFile(object):
             use_native_locking: bool, Whether or not fcntl/win32 locking is
                                 used.
         """
-        opener = None
-        if not opener and use_native_locking:
-            if _Win32Opener:
-                opener = _Win32Opener(filename, mode, fallback_mode)
+        if use_native_locking:
             if _FcntlOpener:
-                opener = _FcntlOpener(filename, mode, fallback_mode)
-
-        if not opener:
-            opener = _PosixOpener(filename, mode, fallback_mode)
-
-        self._opener = opener
+                self._opener = _FcntlOpener(filename, mode, fallback_mode)
+            elif _Win32Opener:
+                self._opener = _Win32Opener(filename, mode, fallback_mode)
+            else:
+                self._opener = _PosixOpener(filename, mode, fallback_mode)
+        else:
+            self._opener = _PosixOpener(filename, mode, fallback_mode)
 
     def filename(self):
         """Return the filename we were constructed with."""
